@@ -59,17 +59,20 @@ stopPeaks=topPeaks.sort_values([0])
 stopPeaks=stopPeaks.reset_index(drop=True)
 ClstopPeaks=[]
 max=stopPeaks[1].max()
+topx_1=topx-2
+topx_2=topx-3
+topx_3=topx-4
 i=0
-while i in range(len(stopPeaks[0])-1) and i<98:
+while i in range(len(stopPeaks[0])-1) and i<(topx-1):
       currentx=stopPeaks[0][i]
       currenty=stopPeaks[1][i]
       nexty=stopPeaks[1][i+1]
-      if i<=97:
+      if i<=(topx_2):
             nextnexty=stopPeaks[1][i+2]
-      if i<=96:
+      if i<=(topx_3):
             nextnextnexty=stopPeaks[1][i+3]
       if stopPeaks[0][i+1]-stopPeaks[0][i]<0.5 and stopPeaks[0][i+2]-stopPeaks[0][i+1]<0.5:
-           while stopPeaks[0][i+1]-stopPeaks[0][i]<0.5 and currenty<=max and i<96:
+           while stopPeaks[0][i+1]-stopPeaks[0][i]<0.5 and currenty<=max and i<(topx_3):
                  if currenty>nexty and currenty>nextnexty:
                       max=currenty
                  elif currenty<nexty and nexty>nextnexty:
@@ -89,21 +92,23 @@ while i in range(len(stopPeaks[0])-1) and i<98:
            ClstopPeaks.append(stopPeaks[0][i])
            ClstopPeaks.append(stopPeaks[1][i])
            max=stopPeaks[1].max()
-      elif stopPeaks[0][i+1]-stopPeaks[0][i] <=0.5 and currenty>nexty:
+      elif stopPeaks[0][i+1]-stopPeaks[0][i] <0.5 and stopPeaks[0][i+2]-stopPeaks[0][i+1]>0.5 and currenty>nexty:
            ClstopPeaks.append(stopPeaks[0][i])
            ClstopPeaks.append(stopPeaks[1][i])
            i=i+1
-      elif stopPeaks[0][i+1]-stopPeaks[0][i] <=0.5 and currenty<nexty:
+      elif stopPeaks[0][i+1]-stopPeaks[0][i] <0.5 and stopPeaks[0][i+2]-stopPeaks[0][i+1]>0.5 and currenty<nexty:
            ClstopPeaks.append(stopPeaks[0][i+1])
            ClstopPeaks.append(stopPeaks[1][i+1])
            i=i+1
-      elif stopPeaks[0][i+1]-stopPeaks[0][i]>0.5:
-           ClstopPeaks.append(stopPeaks[0][i])
-           ClstopPeaks.append(stopPeaks[1][i])
       i=i+1
       if stopPeaks[0][i] - currentx < 0.5:
-            while stopPeaks[0][i] - currentx < 0.5 and i<98:
-                  i=1+i	            
+            while stopPeaks[0][i] - currentx < 0.5 and i<=(topx-2):
+                  i=1+i
+            ClstopPeaks.append(stopPeaks[0][i])
+            ClstopPeaks.append(stopPeaks[1][i])
+      elif stopPeaks[0][i+1]-stopPeaks[0][i]>=0.5 and i<=topx-1:
+            ClstopPeaks.append(stopPeaks[0][i])
+            ClstopPeaks.append(stopPeaks[1][i])
 
 label_x=ClstopPeaks[::2]
 label_y=ClstopPeaks[1::2]
