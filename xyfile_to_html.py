@@ -104,11 +104,10 @@ while i in range(len(stopPeaks[0])-1) and i<(topx-1):
       if stopPeaks[0][i] - currentx < 0.5:
             while stopPeaks[0][i] - currentx < 0.5 and i<=(topx-2):
                   i=1+i
+      if stopPeaks[0][i+1]-stopPeaks[0][i]>=0.5 and i<=topx-1:
             ClstopPeaks.append(stopPeaks[0][i])
             ClstopPeaks.append(stopPeaks[1][i])
-      elif stopPeaks[0][i+1]-stopPeaks[0][i]>=0.5 and i<=topx-1:
-            ClstopPeaks.append(stopPeaks[0][i])
-            ClstopPeaks.append(stopPeaks[1][i])
+      i=i+1
 
 label_x=ClstopPeaks[::2]
 label_y=ClstopPeaks[1::2]
